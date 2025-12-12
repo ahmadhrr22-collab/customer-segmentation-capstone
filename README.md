@@ -1,4 +1,4 @@
-# Customer Segmentation Analysis for Online Retail 🛒
+# Customer Segmentation Analysis for Online Retail
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
@@ -31,7 +31,7 @@ Buka terminal atau command prompt, lalu jalankan perintah berikut untuk mengundu
 git clone [https://github.com/ahmadhrr22-collab/customer-segmentation-capstone.git](https://github.com/ahmadhrr22-collab/customer-segmentation-capstone.git)
 cd customer-segmentation-capstone
 ```
-## **2. Install Dependencies
+## 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -39,5 +39,6 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+
 
 
