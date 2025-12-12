@@ -34,7 +34,7 @@ st.markdown("""
         font-weight: 800; 
         color: #4B0082;
         margin-bottom: 0px;
-        line-height: 1.5;
+        line-height: 1.2;
         padding-top: 0px;
     }
     
@@ -42,7 +42,7 @@ st.markdown("""
     .sub-text {
         font-size: 1.2rem;
         color: #555;
-        margin-top: -15px;
+        margin-top: 5px; /* Memberikan sedikit jarak agar tidak terlalu nempel */
     }
 
     /* Card Metric */
@@ -70,7 +70,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER SECTION ---
+# --- HEADER SECTION (REVISI: Hapus Icon & Sejajarkan) ---
 col_header1, col_header2 = st.columns([1, 4])
 
 with col_header1:
@@ -82,7 +82,8 @@ with col_header1:
         st.image("https://cdn-icons-png.flaticon.com/512/1904/1904425.png", width=100)
 
 with col_header2:
-    st.markdown('<div class="main-header">💎 Clustify</div>', unsafe_allow_html=True)
+    # Icon 💎 sudah dihapus di sini agar teks rata kiri
+    st.markdown('<div class="main-header">Clustify</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-text">Automated Customer Segmentation & Marketing Strategy Engine</div>', unsafe_allow_html=True)
 
 st.markdown("---")
@@ -243,7 +244,7 @@ if uploaded_file is not None and model is not None:
                         
                     st.markdown("---")
                     
-                    # --- MENAMPILKAN DATA (YANG TADI HILANG) ---
+                    # --- MENAMPILKAN DATA ---
                     st.subheader(f"📂 Preview Data: {insight['label']}")
                     filtered_df = rfm_data[rfm_data['Cluster'] == cluster_id]
                     
