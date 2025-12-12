@@ -22,11 +22,7 @@ Dataset yang digunakan berasal dari UCI Machine Learning Repository: Online Reta
 Untuk tujuan demo, kami menyertakan file sampel `data_untuk_demo.csv`.
 
 ## Installation & Setup Environment
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal:
-
-## 🛠️ Installation & Setup Environment
-
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda:
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal anda:
 
 ## 1. Clone Repository
 Buka terminal atau command prompt, lalu jalankan perintah berikut untuk mengunduh proyek ini:
@@ -43,4 +39,5 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+
 
