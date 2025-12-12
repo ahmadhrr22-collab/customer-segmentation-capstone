@@ -24,7 +24,7 @@ st.markdown("""
 st.title("💎 Clustify")
 st.markdown("**Automated Customer Segmentation & Marketing Strategy Engine**")
 st.markdown("""
-Aplikasi ini membantu Anda mengidentifikasi segmen pelanggan potensial menggunakan algoritma **K-Means Clustering** dan memberikan rekomendasi strategi pemasaran yang dipersonalisasi.
+Website ini membantu Anda mengidentifikasi segmen pelanggan potensial menggunakan algoritma **K-Means Clustering** dan memberikan rekomendasi strategi pemasaran yang dipersonalisasi.
 """)
 
 # --- 2. SIDEBAR & FILE UPLOAD ---
@@ -245,3 +245,4 @@ else:
     st.info("👋 Selamat datang di Clustify! Silakan upload data transaksi Anda di sidebar kiri untuk memulai.")
     st.markdown("### Format Data yang Dibutuhkan:")
     st.code("InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country")
+
