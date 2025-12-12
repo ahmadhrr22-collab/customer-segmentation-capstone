@@ -24,60 +24,70 @@ def load_lottieurl(url):
     except:
         return None
 
-# --- CSS STYLING (AGAR TAMPILAN CANTIK) ---
+# --- CSS STYLING (REVISI: MEMPERBAIKI TULISAN TERPOTONG) ---
 st.markdown("""
 <style>
-    /* Mengubah font judul */
+    /* Judul Utama */
     .main-header {
         font-family: 'Helvetica Neue', sans-serif;
-        font-size: 3rem; 
+        font-size: 3.5rem; 
         font-weight: 800; 
         color: #4B0082;
         margin-bottom: 0px;
+        line-height: 1.5; /* Mencegah huruf terpotong vertikal */
+        padding-top: 0px;
     }
     
-    /* Membuat Card untuk Metric agar ada bayangan */
+    /* Sub-judul */
+    .sub-text {
+        font-size: 1.2rem;
+        color: #555;
+        margin-top: -15px;
+    }
+
+    /* Card Metric */
     div[data-testid="metric-container"] {
         background-color: #FFFFFF;
         border: 1px solid #CCCCCC;
-        padding: 5% 5% 5% 10%;
+        padding: 15px;
         border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Bayangan */
-        overflow-wrap: break-word;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     }
 
-    /* Style untuk Box Strategi */
+    /* Box Strategi */
     .strategy-box {
         background-color: #f8f9fa; 
         padding: 20px; 
         border-radius: 15px; 
         border-left: 6px solid #4B0082;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
     }
     
-    /* Menghilangkan padding atas default Streamlit supaya lebih rapi */
+    /* Rapikan margin atas */
     .block-container {
         padding-top: 2rem;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER SECTION DENGAN ANIMASI ---
-col_header1, col_header2 = st.columns([1, 3])
+# --- HEADER SECTION (REVISI LAYOUT) ---
+# Mengubah rasio kolom agar judul lebih lega (1:4)
+col_header1, col_header2 = st.columns([1, 4])
 
 with col_header1:
-    # Animasi Robot/Data Analysis (Lottie)
+    # Animasi Robot
     lottie_url = "https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json" 
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
-        st_lottie(lottie_json, height=150, key="coding")
+        st_lottie(lottie_json, height=120, key="coding")
     else:
         st.image("https://cdn-icons-png.flaticon.com/512/1904/1904425.png", width=100)
 
 with col_header2:
-    st.markdown('<p class="main-header">💎 Clustify</p>', unsafe_allow_html=True)
-    st.markdown("**Automated Customer Segmentation & Marketing Strategy Engine**")
-    st.markdown("Mengubah data transaksi mentah menjadi strategi pemasaran yang *actionable* menggunakan **K-Means Clustering**.")
+    # Menggunakan HTML native agar kontrol style lebih kuat
+    st.markdown('<div class="main-header">💎 Clustify</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-text">Automated Customer Segmentation & Marketing Strategy Engine</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -98,7 +108,6 @@ with st.sidebar:
 
 # --- 3. HELPER FUNCTIONS & INSIGHTS ---
 
-# Database Insight (Sesuai Request Anda)
 CLUSTER_INSIGHTS = {
     0: {
         "label": "Lost / Low Value",
@@ -150,7 +159,6 @@ def calculate_rfm(df):
 
 def preprocess_data(rfm_df, scaler):
     rfm_log = rfm_df[['Recency', 'Frequency', 'Monetary']].copy()
-    # Handle negative/zero values for log
     rfm_log = rfm_log.applymap(lambda x: x if x > 0 else 1) 
     rfm_log = np.log1p(rfm_log)
     rfm_scaled = scaler.transform(rfm_log)
@@ -183,7 +191,7 @@ if uploaded_file is not None and model is not None:
                 # --- DASHBOARD UI ---
                 st.success("✅ Analisis Selesai!")
                 
-                # Metrics Row (Dengan styling card CSS diatas)
+                # Metrics Row
                 m1, m2, m3, m4 = st.columns(4)
                 m1.metric("Total User", f"{len(rfm_data)}")
                 m2.metric("Avg. Belanja", f"${rfm_data['Monetary'].mean():,.0f}")
@@ -199,10 +207,10 @@ if uploaded_file is not None and model is not None:
                     fig_pie = px.pie(rfm_data, names='Segment', 
                                      color='Segment',
                                      color_discrete_map={
-                                         "VIP / Champions": "#2ecc71", # Hijau Keren
-                                         "At Risk High Value": "#e74c3c", # Merah
-                                         "New / Potential": "#3498db", # Biru
-                                         "Lost / Low Value": "#95a5a6" # Abu
+                                         "VIP / Champions": "#2ecc71", 
+                                         "At Risk High Value": "#e74c3c", 
+                                         "New / Potential": "#3498db", 
+                                         "Lost / Low Value": "#95a5a6"
                                      },
                                      hole=0.5)
                     st.plotly_chart(fig_pie, use_container_width=True)
@@ -218,16 +226,14 @@ if uploaded_file is not None and model is not None:
                 # Insight Section
                 st.subheader("🚀 Rekomendasi Strategi")
                 
-                # Menggunakan Tabs agar lebih rapi daripada selectbox biasa
                 tab1, tab2, tab3, tab4 = st.tabs(["🏆 VIP", "⚠️ At Risk", "🌱 New/Potential", "💤 Lost"])
                 
                 def display_strategy(cluster_id):
                     insight = CLUSTER_INSIGHTS[cluster_id]
-                    # Menggunakan HTML Box custom
                     st.markdown(f"""
                     <div class="strategy-box">
-                        <h3 style="color: #4B0082;">{insight['label']}</h3>
-                        <p>{insight['description']}</p>
+                        <h3 style="color: #4B0082; margin-top: 0;">{insight['label']}</h3>
+                        <p style="font-size: 1.1rem;">{insight['description']}</p>
                     </div>
                     """, unsafe_allow_html=True)
                     
@@ -239,7 +245,6 @@ if uploaded_file is not None and model is not None:
                         st.markdown("#### 💡 Action Plan")
                         for i in insight['strategy']: st.success(i)
                         
-                    # Filter Data Button
                     st.markdown("---")
                     filtered_df = rfm_data[rfm_data['Cluster'] == cluster_id]
                     csv = filtered_df.to_csv(index=False).encode('utf-8')
@@ -258,12 +263,11 @@ if uploaded_file is not None and model is not None:
     except Exception as e:
         st.error(f"Error: {e}")
 else:
-    # Tampilan Awal (Kosong) dengan Animasi
+    # Tampilan Awal (Kosong)
     col_empty1, col_empty2 = st.columns(2)
     with col_empty1:
          st.info("👋 Silakan upload file CSV di sebelah kiri.")
          st.code("Format: InvoiceNo, Quantity, InvoiceDate, UnitPrice, CustomerID")
     with col_empty2:
-         # Animasi Upload (Lottie)
          lottie_upload = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_vktpl5cy.json")
          if lottie_upload: st_lottie(lottie_upload, height=200)
