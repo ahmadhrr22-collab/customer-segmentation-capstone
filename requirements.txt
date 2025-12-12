@@ -7,3 +7,5 @@ joblib
 matplotlib
 seaborn
 yellowbrick
+requests
+streamlit-lottie
