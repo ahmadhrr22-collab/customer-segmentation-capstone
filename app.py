@@ -16,10 +16,13 @@ st.set_page_config(
 
 # --- FUNGSI LOAD ANIMASI LOTTIE ---
 def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
+    try:
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+    except:
         return None
-    return r.json()
 
 # --- CSS STYLING (AGAR TAMPILAN CANTIK) ---
 st.markdown("""
@@ -95,7 +98,7 @@ with st.sidebar:
 
 # --- 3. HELPER FUNCTIONS & INSIGHTS ---
 
-# Database Insight (Sama seperti sebelumnya)
+# Database Insight (Sesuai Request Anda)
 CLUSTER_INSIGHTS = {
     0: {
         "label": "Lost / Low Value",
@@ -147,6 +150,7 @@ def calculate_rfm(df):
 
 def preprocess_data(rfm_df, scaler):
     rfm_log = rfm_df[['Recency', 'Frequency', 'Monetary']].copy()
+    # Handle negative/zero values for log
     rfm_log = rfm_log.applymap(lambda x: x if x > 0 else 1) 
     rfm_log = np.log1p(rfm_log)
     rfm_scaled = scaler.transform(rfm_log)
