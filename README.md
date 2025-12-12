@@ -28,15 +28,15 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal:
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda:
 
-### 1. Clone Repository
+## 1. Clone Repository
 Buka terminal atau command prompt, lalu jalankan perintah berikut untuk mengunduh proyek ini:
 
 ```bash
 git clone [https://github.com/ahmadhrr22-collab/customer-segmentation-capstone.git](https://github.com/ahmadhrr22-collab/customer-segmentation-capstone.git)
 cd customer-segmentation-capstone
-
-### 2. Install Dependencies
+```
+## **2. Install Dependencies
 pip install -r requirements.txt
 
-### 3. How to Run the App
+## 3. How to Run the App
 streamlit run app.py
