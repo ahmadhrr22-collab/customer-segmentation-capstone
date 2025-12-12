@@ -8,7 +8,7 @@
 Proyek ini bertujuan untuk membantu tim pemasaran perusahaan ritel online dalam melakukan segmentasi pelanggan secara otomatis. Menggunakan algoritma **K-Means Clustering** dan analisis **RFM (Recency, Frequency, Monetary)**, kami mengelompokkan pelanggan ke dalam segmen yang actionable untuk strategi pemasaran yang lebih personal.
 
 **Tim Capstone: A25-CS332**
-- Ahmad Hariri - M001D5Y0094(Machine Learning)
+- Ahmad Hariri - M001D5Y0094 (Machine Learning)
 - Mhd. Nanda Mulia - M001D5Y1097 (Machine Learning)
 - Dadan Ramdani - M001D5Y0406 (Machine Learning)
 
@@ -39,6 +39,7 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+
 
 
 
