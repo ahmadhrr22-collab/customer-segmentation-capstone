@@ -24,7 +24,7 @@ def load_lottieurl(url):
     except:
         return None
 
-# --- CSS STYLING (REVISI: MEMPERBAIKI TULISAN TERPOTONG) ---
+# --- CSS STYLING ---
 st.markdown("""
 <style>
     /* Judul Utama */
@@ -34,7 +34,7 @@ st.markdown("""
         font-weight: 800; 
         color: #4B0082;
         margin-bottom: 0px;
-        line-height: 1.5; /* Mencegah huruf terpotong vertikal */
+        line-height: 1.5;
         padding-top: 0px;
     }
     
@@ -64,19 +64,16 @@ st.markdown("""
         margin-bottom: 20px;
     }
     
-    /* Rapikan margin atas */
     .block-container {
         padding-top: 2rem;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER SECTION (REVISI LAYOUT) ---
-# Mengubah rasio kolom agar judul lebih lega (1:4)
+# --- HEADER SECTION ---
 col_header1, col_header2 = st.columns([1, 4])
 
 with col_header1:
-    # Animasi Robot
     lottie_url = "https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json" 
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
@@ -85,7 +82,6 @@ with col_header1:
         st.image("https://cdn-icons-png.flaticon.com/512/1904/1904425.png", width=100)
 
 with col_header2:
-    # Menggunakan HTML native agar kontrol style lebih kuat
     st.markdown('<div class="main-header">💎 Clustify</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-text">Automated Customer Segmentation & Marketing Strategy Engine</div>', unsafe_allow_html=True)
 
@@ -224,7 +220,7 @@ if uploaded_file is not None and model is not None:
                 st.markdown("---")
                 
                 # Insight Section
-                st.subheader("🚀 Rekomendasi Strategi")
+                st.subheader("🚀 Rekomendasi Strategi & Data")
                 
                 tab1, tab2, tab3, tab4 = st.tabs(["🏆 VIP", "⚠️ At Risk", "🌱 New/Potential", "💤 Lost"])
                 
@@ -246,10 +242,18 @@ if uploaded_file is not None and model is not None:
                         for i in insight['strategy']: st.success(i)
                         
                     st.markdown("---")
+                    
+                    # --- MENAMPILKAN DATA (YANG TADI HILANG) ---
+                    st.subheader(f"📂 Preview Data: {insight['label']}")
                     filtered_df = rfm_data[rfm_data['Cluster'] == cluster_id]
+                    
+                    # Menampilkan Tabel Data
+                    st.dataframe(filtered_df, use_container_width=True)
+                    
+                    # Download Button
                     csv = filtered_df.to_csv(index=False).encode('utf-8')
                     st.download_button(
-                        label=f"📥 Download Data {insight['label']}",
+                        label=f"📥 Download CSV ({len(filtered_df)} Rows)",
                         data=csv,
                         file_name=f'Clustify_{insight["label"]}.csv',
                         mime='text/csv'
