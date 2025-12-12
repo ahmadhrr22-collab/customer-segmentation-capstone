@@ -36,7 +36,11 @@ git clone [https://github.com/ahmadhrr22-collab/customer-segmentation-capstone.g
 cd customer-segmentation-capstone
 ```
 ## **2. Install Dependencies
+```bash
 pip install -r requirements.txt
-
+```
 ## 3. How to Run the App
+```bash
 streamlit run app.py
+```
+
